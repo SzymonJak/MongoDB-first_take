@@ -1,5 +1,5 @@
 {
-  "name": "ComapnyApp",
+  "name": "comapny_app",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
@@ -10,6 +10,9 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "mongodb": "3.3.2",
-    "nodemon": "^1.19.1"
+    "mongoose": "5.7.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
   }
 }
