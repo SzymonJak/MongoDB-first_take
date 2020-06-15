@@ -52,8 +52,7 @@ exports.modifyDoc = async (req, res) => {
             const dept = Department.findById(req.params.id);
             if (dept) {
                 const doc = await Department.findOneAndUpdate({ _id: req.params.id }, { $set: { name } }, { new: true });
-                // const newDept = Department.findById(req.params.id);
-                res.json({ message: doc });
+                res.json(doc);
             }
             else res.status(404).json({ message: 'Not found' });
         } catch (err) {
@@ -68,7 +67,7 @@ exports.deleteDoc = async (req, res) => {
         if (dept) {
             const doc = await Department.findOne({ _id: req.params.id });
             await doc.remove();
-            res.json({ message: doc });
+            res.json(doc);
         }
         else res.status(404).json({ message: 'Not found' });
     }
