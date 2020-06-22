@@ -17,15 +17,15 @@ describe('Employee', () => {
 
     it('should throw na error if "firstName" or "lastName" is not a string', () => {
         const cases = [
-            [[], []],
-            [{}, {}],
-            [{}, []],
-            [[], {}]
+            [[], [], 'example'],
+            [{}, {}, 'example'],
+            [{}, [], 'example'],
+            [[], {}, 'example']
         ];
 
         for (let option of cases) {
-            const [firstName, lastName] = option;
-            const empl = new Employee({ firstName, lastName });
+            const [firstName, lastName, department] = option;
+            const empl = new Employee({ firstName, lastName, department });
 
             empl.validate(err => {
                 expect(err.errors.firstName).to.exist;
@@ -38,12 +38,12 @@ describe('Employee', () => {
     it('should not throw an error if "firstName" and "lastName" are OK', () => {
         const firstName = 'jeden';
         const lastName = 'dwa';
+        const department = 'example';
     
-        const empl = new Employee({firstName, lastName});
+        const empl = new Employee({firstName, lastName, department});
         
         empl.validate(err => {
-            expect(err.errors.firstName).to.not.exist;
-            expect(err.errors.lastName).to.not.exist;
+            expect(err).to.not.exist;
         });
     
     });
