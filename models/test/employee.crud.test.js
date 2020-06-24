@@ -1,4 +1,5 @@
 const Employee = require('../employee.model');
+const Department = require('../department.model');
 const expect = require('chai').expect;
 const mongoose = require('mongoose');
 const MongoMemoryServer = require('mongodb-memory-server').MongoMemoryServer;
@@ -137,16 +138,26 @@ describe('Employee', () => {
     describe('Populate', () => {
 
         before(async () => {
-            const testEmplOne = new Employee({ firstName: 'Jan', lastName: 'Kowalski', department: 'Marketing' }); //ref: 'Department'
+            const testDeptOne = new Department({ name: 'Department #1'});
+            const deptOneId = await testDeptOne.save();
+
+            const testDeptTwo = new Department({ name: 'Department #2'});
+            const deptTwoId = await testDeptTwo.save();
+
+            const testEmplOne = new Employee({ firstName: 'Jan', lastName: 'Kowalski', department: deptOneId.id }); //ref: 'Department'
             await testEmplOne.save();
 
-            const testEmplTwo = new Employee({ firstName: 'Anna', lastName: 'Nowak', department: 'HR'});
+            const testEmplTwo = new Employee({ firstName: 'Anna', lastName: 'Nowak', department: deptTwoId.id });
             await testEmplTwo.save();
+
         });
 
         it('should return proper dept name', async () => {
-            // const empls = Employee.find().populate('department');
-            // expect(empls).to.not.be.null;
+            const populated = await Employee.find().populate('department');
+
+            expect(populated[0].department.name).to.be.equal('Department #1');
+            expect(populated[1].department.name).to.be.equal('Department #2');
+            
         });
 
         after(async () => {
