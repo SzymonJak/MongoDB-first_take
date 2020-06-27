@@ -21,8 +21,7 @@ app.use((req, res) => {
 })
 
 // connection with database
-const dbURI = process.env.NODE_ENV === 'production' ? 'url to remote db' : 'mongodb://localhost:27017/companyDB';
-mongoose.connect(dbURI, { useNewURLParser: true, useUnifiedTopology: true });
+mongoose.connect('mongodb://localhost:27017/companyDB', { useNewURLParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
 
 db.once('open', () => {

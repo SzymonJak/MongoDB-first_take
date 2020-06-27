@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
-  "scripts": {
+"scripts": {
     "start": "nodemon server.js",
-    "test": "NODE_ENV=test mocha \"./{,!(node_modules)/**/}*.test.js\"",
+    "test": "mocha \"./{,!(node_modules)/**/}*.test.js\"",
     "test:watch": "onchange \"./**/*.js\" -i -k -- yarn test"
   },
   "dependencies": {
