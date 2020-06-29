@@ -5,8 +5,10 @@
   "license": "MIT",
 "scripts": {
     "start": "nodemon server.js",
-    "test": "mocha \"./{,!(node_modules)/**/}*.test.js\"",
-    "test:watch": "onchange \"./**/*.js\" -i -k -- yarn test"
+    "test_api": "mocha \"./{,!(node_modules)/**/}test/api/departments/*.test.js\"",
+    "test_api:watch": "onchange \"./**/*.js\" -i -k -- yarn test_api",
+    "test_models": "mocha \"./{,!(node_modules)/**/}models/test/*.test.js\"",
+    "test_models:watch": "onchange \"./**/*.js\" -i -k -- yarn test_models"
   },
   "dependencies": {
     "cors": "^2.8.5",

@@ -4,14 +4,13 @@ const mongoose = require('mongoose');
 const MongoMemoryServer = require('mongodb-memory-server').MongoMemoryServer;
 
 describe('Department', () => {
-
+    let fakeDB = new MongoMemoryServer();
+    let conn;
     before(async () => {
 
         try {
-            const fakeDB = new MongoMemoryServer();
             const uri = await fakeDB.getConnectionString();
-
-            mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true});
+            conn = await mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true});
         } catch(err) {
             console.log(err);
         }
@@ -129,6 +128,12 @@ describe('Department', () => {
             await Department.deleteMany();
         });
       
+    });
+
+    after(async () => {
+        mongoose.models = {};
+        await conn.disconnect();
+        await fakeDB.stop();
     });
 
 });
